@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { OrderEntity } from '../order/order.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -13,4 +14,9 @@ export class UserEntity {
 
   @Column()
   email: string;
+
+  @OneToMany(() => OrderEntity, (order) => order.orderedBy, {
+    onDelete: 'CASCADE',
+  })
+  orders: OrderEntity[];
 }
